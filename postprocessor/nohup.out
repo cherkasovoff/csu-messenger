@@ -1,0 +1,169 @@
+INFO:     Will watch for changes in these directories: ['/home/thever4/python/csu-messenger/postprocessor']
+INFO:     Uvicorn running on http://0.0.0.0:8080 (Press CTRL+C to quit)
+INFO:     Started reloader process [529557] using statreload
+INFO:     Started server process [529560]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     192.168.0.109:65279 - "GET / HTTP/1.1" 404 Not Found
+INFO:     Will watch for changes in these directories: ['/home/thever4/python/csu-messenger/postprocessor']
+ERROR:    [Errno 98] Address already in use
+INFO:     Will watch for changes in these directories: ['/home/thever4/python/csu-messenger/postprocessor']
+INFO:     Uvicorn running on http://0.0.0.0:8085 (Press CTRL+C to quit)
+INFO:     Started reloader process [550239] using statreload
+INFO:     Started server process [550243]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     192.168.0.109:49401 - "GET / HTTP/1.1" 404 Not Found
+INFO:     192.168.0.109:49401 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     192.168.0.109:63567 - "GET /docs HTTP/1.1" 200 OK
+INFO:     192.168.0.109:63570 - "GET /openapi.json HTTP/1.1" 200 OK
+WARNING:  StatReload detected file change in 'domain/parsing.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [550243]
+INFO:     Started server process [552061]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected file change in 'domain/parsing.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [552061]
+INFO:     Started server process [552077]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     192.168.0.109:63762 - "POST /extra HTTP/1.1" 200 OK
+INFO:     192.168.0.109:63790 - "POST /extra HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/uvicorn/protocols/http/h11_impl.py", line 366, in run_asgi
+    result = await app(self.scope, self.receive, self.send)
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/uvicorn/middleware/proxy_headers.py", line 75, in __call__
+    return await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/uvicorn/middleware/debug.py", line 96, in __call__
+    raise exc from None
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/uvicorn/middleware/debug.py", line 93, in __call__
+    await self.app(scope, receive, inner_send)
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/fastapi/applications.py", line 261, in __call__
+    await super().__call__(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/starlette/applications.py", line 112, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/starlette/middleware/errors.py", line 181, in __call__
+    raise exc
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/starlette/middleware/errors.py", line 159, in __call__
+    await self.app(scope, receive, _send)
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/starlette/exceptions.py", line 82, in __call__
+    raise exc
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/starlette/exceptions.py", line 71, in __call__
+    await self.app(scope, receive, sender)
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/fastapi/middleware/asyncexitstack.py", line 21, in __call__
+    raise e
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/starlette/routing.py", line 656, in __call__
+    await route.handle(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/starlette/routing.py", line 259, in handle
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/starlette/routing.py", line 61, in app
+    response = await func(request)
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/fastapi/routing.py", line 227, in app
+    raw_response = await run_endpoint_function(
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/fastapi/routing.py", line 162, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/starlette/concurrency.py", line 39, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func, *args)
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/anyio/to_thread.py", line 31, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 937, in run_sync_in_worker_thread
+    return await future
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 867, in run
+    result = context.run(func, *args)
+  File "/home/thever4/python/csu-messenger/postprocessor/main.py", line 16, in get_extra
+    return domain.get_extra(text)
+  File "/home/thever4/python/csu-messenger/postprocessor/domain/parsing.py", line 39, in get_extra
+    extra += get_hashtags(text)
+  File "/home/thever4/python/csu-messenger/postprocessor/domain/parsing.py", line 28, in get_hashtags
+    Extra(text=hashtag, offset=text.find(hashtag), length=len(hashtag))
+TypeError: must be str, not tuple
+WARNING:  StatReload detected file change in 'domain/parsing.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [552077]
+INFO:     Started server process [553007]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     192.168.0.109:63852 - "POST /extra HTTP/1.1" 200 OK
+INFO:     192.168.0.109:63943 - "POST /extra HTTP/1.1" 200 OK
+INFO:     192.168.0.109:63962 - "POST /extra HTTP/1.1" 200 OK
+WARNING:  StatReload detected file change in 'domain/parsing.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [553007]
+INFO:     Started server process [553028]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     192.168.0.109:63982 - "POST /extra HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/uvicorn/protocols/http/h11_impl.py", line 366, in run_asgi
+    result = await app(self.scope, self.receive, self.send)
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/uvicorn/middleware/proxy_headers.py", line 75, in __call__
+    return await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/uvicorn/middleware/debug.py", line 96, in __call__
+    raise exc from None
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/uvicorn/middleware/debug.py", line 93, in __call__
+    await self.app(scope, receive, inner_send)
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/fastapi/applications.py", line 261, in __call__
+    await super().__call__(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/starlette/applications.py", line 112, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/starlette/middleware/errors.py", line 181, in __call__
+    raise exc
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/starlette/middleware/errors.py", line 159, in __call__
+    await self.app(scope, receive, _send)
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/starlette/exceptions.py", line 82, in __call__
+    raise exc
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/starlette/exceptions.py", line 71, in __call__
+    await self.app(scope, receive, sender)
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/fastapi/middleware/asyncexitstack.py", line 21, in __call__
+    raise e
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/starlette/routing.py", line 656, in __call__
+    await route.handle(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/starlette/routing.py", line 259, in handle
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/starlette/routing.py", line 61, in app
+    response = await func(request)
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/fastapi/routing.py", line 227, in app
+    raw_response = await run_endpoint_function(
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/fastapi/routing.py", line 162, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/starlette/concurrency.py", line 39, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func, *args)
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/anyio/to_thread.py", line 31, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 937, in run_sync_in_worker_thread
+    return await future
+  File "/home/thever4/python/csu-messenger/postprocessor/venv/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 867, in run
+    result = context.run(func, *args)
+  File "/home/thever4/python/csu-messenger/postprocessor/main.py", line 16, in get_extra
+    return domain.get_extra(text)
+  File "/home/thever4/python/csu-messenger/postprocessor/domain/parsing.py", line 39, in get_extra
+    extra += get_hashtags(text)
+  File "/home/thever4/python/csu-messenger/postprocessor/domain/parsing.py", line 28, in get_hashtags
+    Extra(text=hashtag, offset=text.find(hashtag), length=len(hashtag))
+TypeError: must be str, not tuple
+WARNING:  StatReload detected file change in 'domain/parsing.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [553028]
+INFO:     Started server process [553064]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     192.168.0.109:55178 - "POST /extra HTTP/1.1" 200 OK
+INFO:     192.168.0.101:57754 - "POST /extra HTTP/1.1" 200 OK

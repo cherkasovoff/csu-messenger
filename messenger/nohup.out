@@ -1,0 +1,535 @@
+
+WARNING:  Unsupported upgrade request.
+WARNING:  No supported WebSocket library detected. Please use 'pip install uvicorn[standard]', or install 'websockets' or 'wsproto' manually.
+INFO:     Will watch for changes in these directories: ['/home/thever4/python/csu-messenger/messenger']
+INFO:     Uvicorn running on http://0.0.0.0:8080 (Press CTRL+C to quit)
+INFO:     Started reloader process [553729] using watchgod
+INFO:     Started server process [553734]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     ('192.168.0.109', 59848) - "WebSocket /utils/ws/1" [accepted]
+INFO:     connection open
+INFO:     192.168.0.109:59868 - "GET /utils/ws-page HTTP/1.1" 200 OK
+INFO:     ('192.168.0.109', 59870) - "WebSocket /utils/ws/1" [accepted]
+INFO:     connection open
+WARNING:  WatchGodReload detected file change in '['/home/thever4/python/csu-messenger/messenger/endpoints/utils.py']'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for background tasks to complete. (CTRL+C to force quit)
+INFO:     Will watch for changes in these directories: ['/home/thever4/python/csu-messenger/messenger']
+INFO:     Uvicorn running on http://0.0.0.0:8080 (Press CTRL+C to quit)
+INFO:     Started reloader process [553767] using watchgod
+INFO:     Started server process [553771]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     192.168.0.109:60059 - "GET /utils/ws-page HTTP/1.1" 200 OK
+INFO:     ('192.168.0.109', 60062) - "WebSocket /utils/ws/1" [accepted]
+INFO:     connection open
+INFO:     192.168.0.109:60080 - "GET /utils/ws-page HTTP/1.1" 200 OK
+INFO:     ('192.168.0.109', 60082) - "WebSocket /utils/ws/1" [accepted]
+INFO:     connection open
+INFO:     192.168.0.109:60422 - "GET /docs HTTP/1.1" 200 OK
+INFO:     192.168.0.109:60422 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     192.168.0.109:60421 - "GET /utils/ws-pubsub?user_id=1&text=test%20text HTTP/1.1" 200 OK
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/protocols/websockets/websockets_impl.py", line 184, in run_asgi
+    result = await self.app(self.scope, self.asgi_receive, self.asgi_send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/middleware/proxy_headers.py", line 75, in __call__
+    return await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/middleware/debug.py", line 81, in __call__
+    return await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/applications.py", line 261, in __call__
+    await super().__call__(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/applications.py", line 112, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/middleware/errors.py", line 146, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/exceptions.py", line 58, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/middleware/asyncexitstack.py", line 21, in __call__
+    raise e
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 656, in __call__
+    await route.handle(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 315, in handle
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 77, in app
+    await func(session)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/routing.py", line 274, in app
+    await dependant.call(**values)
+  File "/home/thever4/python/csu-messenger/messenger/endpoints/utils.py", line 84, in websocket_endpoint
+    await websocket.send_text(message["data"].decode())
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/websockets.py", line 128, in send_text
+    await self.send({"type": "websocket.send", "text": data})
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/websockets.py", line 68, in send
+    await self._send(message)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/protocols/websockets/websockets_impl.py", line 252, in asgi_send
+    await self.send(data)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 620, in send
+    await self.ensure_open()
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 921, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedOK: received 1001 (going away); then sent 1001 (going away)
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 945, in transfer_data
+    message = await self.read_message()
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 1015, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 1090, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 1145, in read_frame
+    frame = await Frame.read(
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/framing.py", line 70, in read
+    data = await reader(2)
+  File "/usr/lib/python3.8/asyncio/streams.py", line 721, in readexactly
+    raise exceptions.IncompleteReadError(incomplete, n)
+asyncio.exceptions.IncompleteReadError: 0 bytes read on a total of 2 expected bytes
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/protocols/websockets/websockets_impl.py", line 184, in run_asgi
+    result = await self.app(self.scope, self.asgi_receive, self.asgi_send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/middleware/proxy_headers.py", line 75, in __call__
+    return await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/middleware/debug.py", line 81, in __call__
+    return await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/applications.py", line 261, in __call__
+    await super().__call__(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/applications.py", line 112, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/middleware/errors.py", line 146, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/exceptions.py", line 58, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/middleware/asyncexitstack.py", line 21, in __call__
+    raise e
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 656, in __call__
+    await route.handle(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 315, in handle
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 77, in app
+    await func(session)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/routing.py", line 274, in app
+    await dependant.call(**values)
+  File "/home/thever4/python/csu-messenger/messenger/endpoints/utils.py", line 85, in websocket_endpoint
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/websockets.py", line 128, in send_text
+    await self.send({"type": "websocket.send", "text": data})
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/websockets.py", line 68, in send
+    await self._send(message)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/protocols/websockets/websockets_impl.py", line 252, in asgi_send
+    await self.send(data)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 620, in send
+    await self.ensure_open()
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 921, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+INFO:     connection closed
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/protocols/websockets/websockets_impl.py", line 184, in run_asgi
+    result = await self.app(self.scope, self.asgi_receive, self.asgi_send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/middleware/proxy_headers.py", line 75, in __call__
+    return await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/middleware/debug.py", line 81, in __call__
+    return await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/applications.py", line 261, in __call__
+    await super().__call__(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/applications.py", line 112, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/middleware/errors.py", line 146, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/exceptions.py", line 58, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/middleware/asyncexitstack.py", line 21, in __call__
+    raise e
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 656, in __call__
+    await route.handle(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 315, in handle
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 77, in app
+    await func(session)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/routing.py", line 274, in app
+    await dependant.call(**values)
+  File "/home/thever4/python/csu-messenger/messenger/endpoints/utils.py", line 85, in websocket_endpoint
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/websockets.py", line 128, in send_text
+    await self.send({"type": "websocket.send", "text": data})
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/websockets.py", line 68, in send
+    await self._send(message)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/protocols/websockets/websockets_impl.py", line 252, in asgi_send
+    await self.send(data)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 620, in send
+    await self.ensure_open()
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 921, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedOK: received 1000 (OK); then sent 1000 (OK)
+INFO:     connection closed
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [553734]
+INFO:     192.168.0.109:60635 - "GET /utils/ws-page HTTP/1.1" 200 OK
+INFO:     ('192.168.0.109', 60637) - "WebSocket /utils/ws/1" [accepted]
+INFO:     connection open
+INFO:     192.168.0.109:60635 - "GET /utils/ws-page HTTP/1.1" 200 OK
+INFO:     ('192.168.0.109', 60641) - "WebSocket /utils/ws/1" [accepted]
+INFO:     connection open
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/protocols/websockets/websockets_impl.py", line 184, in run_asgi
+    result = await self.app(self.scope, self.asgi_receive, self.asgi_send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/middleware/proxy_headers.py", line 75, in __call__
+    return await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/middleware/debug.py", line 81, in __call__
+    return await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/applications.py", line 261, in __call__
+    await super().__call__(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/applications.py", line 112, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/middleware/errors.py", line 146, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/exceptions.py", line 58, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/middleware/asyncexitstack.py", line 21, in __call__
+    raise e
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 656, in __call__
+    await route.handle(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 315, in handle
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 77, in app
+    await func(session)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/routing.py", line 274, in app
+    await dependant.call(**values)
+  File "/home/thever4/python/csu-messenger/messenger/endpoints/utils.py", line 84, in websocket_endpoint
+    await websocket.send_text(message["data"].decode())
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/websockets.py", line 128, in send_text
+    await self.send({"type": "websocket.send", "text": data})
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/websockets.py", line 68, in send
+    await self._send(message)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/protocols/websockets/websockets_impl.py", line 252, in asgi_send
+    await self.send(data)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 620, in send
+    await self.ensure_open()
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 921, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedOK: received 1001 (going away); then sent 1001 (going away)
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/protocols/websockets/websockets_impl.py", line 184, in run_asgi
+    result = await self.app(self.scope, self.asgi_receive, self.asgi_send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/middleware/proxy_headers.py", line 75, in __call__
+    return await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/middleware/debug.py", line 81, in __call__
+    return await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/applications.py", line 261, in __call__
+    await super().__call__(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/applications.py", line 112, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/middleware/errors.py", line 146, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/exceptions.py", line 58, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/middleware/asyncexitstack.py", line 21, in __call__
+    raise e
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 656, in __call__
+    await route.handle(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 315, in handle
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 77, in app
+    await func(session)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/routing.py", line 274, in app
+    await dependant.call(**values)
+  File "/home/thever4/python/csu-messenger/messenger/endpoints/utils.py", line 84, in websocket_endpoint
+    await websocket.send_text(message["data"].decode())
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/websockets.py", line 128, in send_text
+    await self.send({"type": "websocket.send", "text": data})
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/websockets.py", line 68, in send
+    await self._send(message)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/protocols/websockets/websockets_impl.py", line 252, in asgi_send
+    await self.send(data)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 620, in send
+    await self.ensure_open()
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 921, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedOK: received 1001 (going away); then sent 1001 (going away)
+INFO:     connection closed
+INFO:     connection closed
+INFO:     192.168.0.109:50921 - "GET /utils/ws-page HTTP/1.1" 200 OK
+INFO:     ('192.168.0.109', 50923) - "WebSocket /utils/ws/1" [accepted]
+INFO:     connection open
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/protocols/websockets/websockets_impl.py", line 184, in run_asgi
+    result = await self.app(self.scope, self.asgi_receive, self.asgi_send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/middleware/proxy_headers.py", line 75, in __call__
+    return await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/middleware/debug.py", line 81, in __call__
+    return await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/applications.py", line 261, in __call__
+    await super().__call__(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/applications.py", line 112, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/middleware/errors.py", line 146, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/exceptions.py", line 58, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/middleware/asyncexitstack.py", line 21, in __call__
+    raise e
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 656, in __call__
+    await route.handle(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 315, in handle
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 77, in app
+    await func(session)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/routing.py", line 274, in app
+    await dependant.call(**values)
+  File "/home/thever4/python/csu-messenger/messenger/endpoints/utils.py", line 84, in websocket_endpoint
+    await websocket.send_text(message["data"].decode())
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/websockets.py", line 128, in send_text
+    await self.send({"type": "websocket.send", "text": data})
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/websockets.py", line 68, in send
+    await self._send(message)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/protocols/websockets/websockets_impl.py", line 252, in asgi_send
+    await self.send(data)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 620, in send
+    await self.ensure_open()
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 921, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedOK: received 1001 (going away); then sent 1001 (going away)
+INFO:     connection closed
+INFO:     ('192.168.0.109', 51097) - "WebSocket /utils/ws/1" [accepted]
+INFO:     connection open
+INFO:     192.168.0.109:51120 - "GET /utils/ws-page HTTP/1.1" 200 OK
+INFO:     ('192.168.0.109', 51122) - "WebSocket /utils/ws/1" [accepted]
+INFO:     connection open
+INFO:     192.168.0.109:51120 - "GET /utils/ws-page HTTP/1.1" 200 OK
+INFO:     ('192.168.0.109', 51123) - "WebSocket /utils/ws/1" [accepted]
+INFO:     connection open
+INFO:     192.168.0.109:51359 - "GET /utils/ws-pubsub?user_id=1&text=test%20text HTTP/1.1" 200 OK
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/protocols/websockets/websockets_impl.py", line 184, in run_asgi
+    result = await self.app(self.scope, self.asgi_receive, self.asgi_send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/middleware/proxy_headers.py", line 75, in __call__
+    return await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/middleware/debug.py", line 81, in __call__
+    return await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/applications.py", line 261, in __call__
+    await super().__call__(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/applications.py", line 112, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/middleware/errors.py", line 146, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/exceptions.py", line 58, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/middleware/asyncexitstack.py", line 21, in __call__
+    raise e
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 656, in __call__
+    await route.handle(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 315, in handle
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 77, in app
+    await func(session)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/routing.py", line 274, in app
+    await dependant.call(**values)
+  File "/home/thever4/python/csu-messenger/messenger/endpoints/utils.py", line 84, in websocket_endpoint
+    await websocket.send_text(message["data"].decode())
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/websockets.py", line 128, in send_text
+    await self.send({"type": "websocket.send", "text": data})
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/websockets.py", line 68, in send
+    await self._send(message)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/protocols/websockets/websockets_impl.py", line 252, in asgi_send
+    await self.send(data)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 620, in send
+    await self.ensure_open()
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 921, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedOK: received 1001 (going away); then sent 1001 (going away)
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/protocols/websockets/websockets_impl.py", line 184, in run_asgi
+    result = await self.app(self.scope, self.asgi_receive, self.asgi_send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/middleware/proxy_headers.py", line 75, in __call__
+    return await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/middleware/debug.py", line 81, in __call__
+    return await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/applications.py", line 261, in __call__
+    await super().__call__(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/applications.py", line 112, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/middleware/errors.py", line 146, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/exceptions.py", line 58, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/middleware/asyncexitstack.py", line 21, in __call__
+    raise e
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 656, in __call__
+    await route.handle(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 315, in handle
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 77, in app
+    await func(session)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/routing.py", line 274, in app
+    await dependant.call(**values)
+  File "/home/thever4/python/csu-messenger/messenger/endpoints/utils.py", line 84, in websocket_endpoint
+    await websocket.send_text(message["data"].decode())
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/websockets.py", line 128, in send_text
+    await self.send({"type": "websocket.send", "text": data})
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/websockets.py", line 68, in send
+    await self._send(message)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/protocols/websockets/websockets_impl.py", line 252, in asgi_send
+    await self.send(data)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 620, in send
+    await self.ensure_open()
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 921, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedOK: received 1001 (going away); then sent 1001 (going away)
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/protocols/websockets/websockets_impl.py", line 184, in run_asgi
+    result = await self.app(self.scope, self.asgi_receive, self.asgi_send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/middleware/proxy_headers.py", line 75, in __call__
+    return await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/middleware/debug.py", line 81, in __call__
+    return await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/applications.py", line 261, in __call__
+    await super().__call__(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/applications.py", line 112, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/middleware/errors.py", line 146, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/exceptions.py", line 58, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/middleware/asyncexitstack.py", line 21, in __call__
+    raise e
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 656, in __call__
+    await route.handle(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 315, in handle
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 77, in app
+    await func(session)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/routing.py", line 274, in app
+    await dependant.call(**values)
+  File "/home/thever4/python/csu-messenger/messenger/endpoints/utils.py", line 84, in websocket_endpoint
+    await websocket.send_text(message["data"].decode())
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/websockets.py", line 128, in send_text
+    await self.send({"type": "websocket.send", "text": data})
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/websockets.py", line 68, in send
+    await self._send(message)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/protocols/websockets/websockets_impl.py", line 252, in asgi_send
+    await self.send(data)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 620, in send
+    await self.ensure_open()
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 921, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedOK: received 1001 (going away); then sent 1001 (going away)
+INFO:     connection closed
+INFO:     connection closed
+INFO:     connection closed
+INFO:     192.168.0.109:51370 - "GET /utils/ws-pubsub?user_id=1&text=lol%20kek HTTP/1.1" 200 OK
+WARNING:  WatchGodReload detected file change in '['/home/thever4/python/csu-messenger/messenger/endpoints/utils.py']'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for background tasks to complete. (CTRL+C to force quit)
+INFO:     Will watch for changes in these directories: ['/home/thever4/python/csu-messenger/messenger']
+ERROR:    [Errno 98] Address already in use
+INFO:     Will watch for changes in these directories: ['/home/thever4/python/csu-messenger/messenger']
+INFO:     Uvicorn running on http://0.0.0.0:8080 (Press CTRL+C to quit)
+INFO:     Started reloader process [555046] using watchgod
+INFO:     Started server process [555050]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     192.168.0.109:51671 - "GET /utils/ws-page HTTP/1.1" 200 OK
+INFO:     ('192.168.0.109', 51674) - "WebSocket /utils/ws/1" [accepted]
+INFO:     connection open
+INFO:     192.168.0.109:51671 - "GET /utils/ws-pubsub?user_id=1&text=Lol%20kek HTTP/1.1" 200 OK
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 945, in transfer_data
+    message = await self.read_message()
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 1015, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 1090, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 1145, in read_frame
+    frame = await Frame.read(
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/framing.py", line 70, in read
+    data = await reader(2)
+  File "/usr/lib/python3.8/asyncio/streams.py", line 721, in readexactly
+    raise exceptions.IncompleteReadError(incomplete, n)
+asyncio.exceptions.IncompleteReadError: 0 bytes read on a total of 2 expected bytes
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/protocols/websockets/websockets_impl.py", line 184, in run_asgi
+    result = await self.app(self.scope, self.asgi_receive, self.asgi_send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/middleware/proxy_headers.py", line 75, in __call__
+    return await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/middleware/debug.py", line 81, in __call__
+    return await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/applications.py", line 261, in __call__
+    await super().__call__(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/applications.py", line 112, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/middleware/errors.py", line 146, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/exceptions.py", line 58, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/middleware/asyncexitstack.py", line 21, in __call__
+    raise e
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 656, in __call__
+    await route.handle(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 315, in handle
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 77, in app
+    await func(session)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/routing.py", line 274, in app
+    await dependant.call(**values)
+  File "/home/thever4/python/csu-messenger/messenger/endpoints/utils.py", line 84, in websocket_endpoint
+    if message:
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/websockets.py", line 128, in send_text
+    await self.send({"type": "websocket.send", "text": data})
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/websockets.py", line 68, in send
+    await self._send(message)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/protocols/websockets/websockets_impl.py", line 252, in asgi_send
+    await self.send(data)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 620, in send
+    await self.ensure_open()
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 921, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [553771]
+INFO:     ('192.168.0.109', 51681) - "WebSocket /utils/ws/1" [accepted]
+INFO:     connection open
+INFO:     192.168.0.109:51689 - "GET /utils/ws-pubsub?user_id=1&text=LOl%20kek HTTP/1.1" 200 OK
+INFO:     192.168.0.109:51689 - "GET /utils/ws-pubsub?user_id=1&text=Hello%20worls HTTP/1.1" 200 OK
+INFO:     192.168.0.109:51696 - "GET /utils/ws-pubsub?user_id=1&text=lols HTTP/1.1" 200 OK
+INFO:     192.168.0.109:51696 - "GET /utils/ws-pubsub?user_id=1&text=pizdec HTTP/1.1" 200 OK
+INFO:     192.168.0.109:51707 - "GET /utils/ws-pubsub?user_id=1&text=Sosi%20her HTTP/1.1" 200 OK
+INFO:     192.168.0.109:51720 - "GET /utils/ws-pubsub?user_id=1&text=her%20pososan%20uspeshno HTTP/1.1" 200 OK
+WARNING:  WatchGodReload detected file change in '['/home/thever4/python/csu-messenger/messenger/endpoints/message.py']'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for background tasks to complete. (CTRL+C to force quit)

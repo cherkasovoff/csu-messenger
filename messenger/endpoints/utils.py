@@ -42,7 +42,7 @@ html = """
         <ul id='messages'>
         </ul>
         <script>
-            var ws = new WebSocket("ws://localhost:8080/utils/ws/1");
+            var ws = new WebSocket("ws://192.168.0.101:8080/utils/ws/1");
             ws.onmessage = function(event) {
                 var messages = document.getElementById('messages')
                 var message = document.createElement('li')
@@ -52,7 +52,8 @@ html = """
             };
             function sendMessage(event) {
                 var input = document.getElementById("messageText")
-                ws.send(input.value)
+                fetch('http://192.168.0.101:8080/utils/ws-pubsub?user_id=1&text=' + input.value)
+		//ws.send(input.value)
                 input.value = ''
                 event.preventDefault()
             }
@@ -93,7 +94,7 @@ async def ws_pubsub(user_id: int, text: str = "test text"):
 @router.post("/post_process_message")
 async def post_process_message(message: str = Body(..., embed=True)):
     """Пост-обработка сообщений: выделение ссылок, упоминаний и и.д."""
-    url = "http://postprocessor:8080/extra"
+    url = "http://lanhost:8085/extra"
     extra = await async_query(task_url=url, text=message)
 
     return extra
