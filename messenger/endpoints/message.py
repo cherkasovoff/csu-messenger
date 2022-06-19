@@ -6,6 +6,7 @@ import crud.chat as chat_crud
 from schemas.message import Message, MessageInDB
 from core.broker.redis import redis
 
+import json
 
 
 router = APIRouter(prefix="/message")
@@ -45,7 +46,7 @@ async def get_all_messages(chat_id: int, db=Depends(get_db)):
 async def create_message(message: Message, db=Depends(get_db)):
     """Отправить сообщение"""
     result = crud.create_message(db=db, message=message)
-    await redis.publish(f"chat-{message.chat_id}", message.text)
+    await redis.publish(f"chat-{message.chat_id}", message.toJSON())
     return result
 
 

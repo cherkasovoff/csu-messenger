@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 import uvicorn
 
 from endpoints.login import router as login_router
@@ -14,6 +15,7 @@ app.include_router(login_router, tags=["login"])
 app.include_router(utils_router, tags=["utils"])
 app.include_router(chat_router, tags=["chat"])
 app.include_router(message_router, tags=["message"])
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 if __name__ == "__main__":
     uvicorn.run(
