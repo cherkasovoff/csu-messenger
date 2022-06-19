@@ -533,3 +533,395 @@ INFO:     192.168.0.109:51720 - "GET /utils/ws-pubsub?user_id=1&text=her%20posos
 WARNING:  WatchGodReload detected file change in '['/home/thever4/python/csu-messenger/messenger/endpoints/message.py']'. Reloading...
 INFO:     Shutting down
 INFO:     Waiting for background tasks to complete. (CTRL+C to force quit)
+INFO:     Will watch for changes in these directories: ['/home/thever4/python/csu-messenger/messenger']
+INFO:     Uvicorn running on http://0.0.0.0:8080 (Press CTRL+C to quit)
+INFO:     Started reloader process [555400] using watchgod
+INFO:     Started server process [555405]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     192.168.0.109:60866 - "GET /utils/ws-page HTTP/1.1" 200 OK
+INFO:     ('192.168.0.109', 60868) - "WebSocket /utils/ws/1" [accepted]
+INFO:     connection open
+INFO:     192.168.0.109:60884 - "GET /utils/ws-pubsub?user_id=1&text=Hello HTTP/1.1" 200 OK
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 945, in transfer_data
+    message = await self.read_message()
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 1015, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 1090, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 1145, in read_frame
+    frame = await Frame.read(
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/framing.py", line 70, in read
+    data = await reader(2)
+  File "/usr/lib/python3.8/asyncio/streams.py", line 721, in readexactly
+    raise exceptions.IncompleteReadError(incomplete, n)
+asyncio.exceptions.IncompleteReadError: 0 bytes read on a total of 2 expected bytes
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/protocols/websockets/websockets_impl.py", line 184, in run_asgi
+    result = await self.app(self.scope, self.asgi_receive, self.asgi_send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/middleware/proxy_headers.py", line 75, in __call__
+    return await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/middleware/debug.py", line 81, in __call__
+    return await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/applications.py", line 261, in __call__
+    await super().__call__(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/applications.py", line 112, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/middleware/errors.py", line 146, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/exceptions.py", line 58, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/middleware/asyncexitstack.py", line 21, in __call__
+    raise e
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 656, in __call__
+    await route.handle(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 315, in handle
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 77, in app
+    await func(session)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/routing.py", line 274, in app
+    await dependant.call(**values)
+  File "/home/thever4/python/csu-messenger/messenger/endpoints/utils.py", line 85, in websocket_endpoint
+    await websocket.send_text(message["data"].decode())
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/websockets.py", line 128, in send_text
+    await self.send({"type": "websocket.send", "text": data})
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/websockets.py", line 68, in send
+    await self._send(message)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/protocols/websockets/websockets_impl.py", line 252, in asgi_send
+    await self.send(data)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 620, in send
+    await self.ensure_open()
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 921, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/protocols/websockets/websockets_impl.py", line 184, in run_asgi
+    result = await self.app(self.scope, self.asgi_receive, self.asgi_send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/middleware/proxy_headers.py", line 75, in __call__
+    return await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/middleware/debug.py", line 81, in __call__
+    return await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/applications.py", line 261, in __call__
+    await super().__call__(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/applications.py", line 112, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/middleware/errors.py", line 146, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/exceptions.py", line 58, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/middleware/asyncexitstack.py", line 21, in __call__
+    raise e
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 656, in __call__
+    await route.handle(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 315, in handle
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 77, in app
+    await func(session)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/routing.py", line 274, in app
+    await dependant.call(**values)
+  File "/home/thever4/python/csu-messenger/messenger/endpoints/utils.py", line 85, in websocket_endpoint
+    await websocket.send_text(message["data"].decode())
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/websockets.py", line 128, in send_text
+    await self.send({"type": "websocket.send", "text": data})
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/websockets.py", line 68, in send
+    await self._send(message)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/protocols/websockets/websockets_impl.py", line 252, in asgi_send
+    await self.send(data)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 620, in send
+    await self.ensure_open()
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 921, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedOK: received 1001 (going away); then sent 1001 (going away)
+INFO:     connection closed
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [555050]
+WARNING:  WatchGodReload detected file change in '['/home/thever4/python/csu-messenger/messenger/crud/message.py']'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for background tasks to complete. (CTRL+C to force quit)
+INFO:     Will watch for changes in these directories: ['/home/thever4/python/csu-messenger/messenger']
+INFO:     Uvicorn running on http://0.0.0.0:8080 (Press CTRL+C to quit)
+INFO:     Started reloader process [572002] using watchgod
+INFO:     Started server process [572005]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     192.168.0.109:55186 - "GET /docs HTTP/1.1" 200 OK
+INFO:     192.168.0.109:55186 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     192.168.0.109:55250 - "GET /docs HTTP/1.1" 200 OK
+INFO:     192.168.0.109:55250 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     192.168.0.109:55262 - "GET /redoc HTTP/1.1" 200 OK
+INFO:     192.168.0.109:55262 - "GET /openapi.json HTTP/1.1" 200 OK
+WARNING:  WatchGodReload detected file change in '['/home/thever4/python/csu-messenger/messenger/crud/chat.py', '/home/thever4/python/csu-messenger/messenger/endpoints/message.py', '/home/thever4/python/csu-messenger/messenger/crud/message.py']'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [572005]
+INFO:     Started server process [572622]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchGodReload detected file change in '['/home/thever4/python/csu-messenger/messenger/crud/message.py']'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [572622]
+INFO:     Started server process [572698]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchGodReload detected file change in '['/home/thever4/python/csu-messenger/messenger/endpoints/message.py']'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [572698]
+INFO:     Started server process [572910]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     192.168.0.109:55785 - "GET /docs HTTP/1.1" 200 OK
+INFO:     192.168.0.109:55787 - "GET /openapi.json HTTP/1.1" 200 OK
+WARNING:  WatchGodReload detected file change in '['/home/thever4/python/csu-messenger/messenger/endpoints/message.py']'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [572910]
+INFO:     Started server process [573040]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchGodReload detected file change in '['/home/thever4/python/csu-messenger/messenger/endpoints/message.py', '/home/thever4/python/csu-messenger/messenger/crud/chat.py']'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [573040]
+INFO:     Started server process [573445]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchGodReload detected file change in '['/home/thever4/python/csu-messenger/messenger/crud/chat.py']'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [573445]
+INFO:     Started server process [573469]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchGodReload detected file change in '['/home/thever4/python/csu-messenger/messenger/endpoints/message.py', '/home/thever4/python/csu-messenger/messenger/crud/chat.py']'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [573469]
+INFO:     Started server process [573595]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchGodReload detected file change in '['/home/thever4/python/csu-messenger/messenger/crud/message.py']'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [573595]
+INFO:     Started server process [573827]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchGodReload detected file change in '['/home/thever4/python/csu-messenger/messenger/crud/message.py']'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [573827]
+INFO:     Started server process [573889]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchGodReload detected file change in '['/home/thever4/python/csu-messenger/messenger/crud/message.py']'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [573889]
+INFO:     Started server process [573994]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchGodReload detected file change in '['/home/thever4/python/csu-messenger/messenger/crud/message.py']'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [573994]
+INFO:     Started server process [574062]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchGodReload detected file change in '['/home/thever4/python/csu-messenger/messenger/endpoints/chat.py']'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [574062]
+INFO:     Started server process [574197]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchGodReload detected file change in '['/home/thever4/python/csu-messenger/messenger/endpoints/chat.py']'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [574197]
+INFO:     Started server process [574301]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchGodReload detected file change in '['/home/thever4/python/csu-messenger/messenger/endpoints/chat.py']'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [574301]
+INFO:     Started server process [574454]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchGodReload detected file change in '['/home/thever4/python/csu-messenger/messenger/endpoints/message.py', '/home/thever4/python/csu-messenger/messenger/endpoints/chat.py']'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [574454]
+INFO:     Started server process [575037]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchGodReload detected file change in '['/home/thever4/python/csu-messenger/messenger/endpoints/chat.py']'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [575037]
+INFO:     Started server process [575474]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     192.168.0.109:56972 - "GET /docs HTTP/1.1" 200 OK
+INFO:     192.168.0.109:56972 - "GET /openapi.json HTTP/1.1" 200 OK
+WARNING:  WatchGodReload detected file change in '['/home/thever4/python/csu-messenger/messenger/endpoints/chat.py']'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [575474]
+INFO:     Started server process [575587]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     192.168.0.109:57134 - "POST /chat/ HTTP/1.1" 404 Not Found
+INFO:     192.168.0.109:57165 - "GET /chat/ HTTP/1.1" 404 Not Found
+INFO:     192.168.0.109:57165 - "POST /chat/ HTTP/1.1" 404 Not Found
+INFO:     192.168.0.109:57228 - "POST /chat/?name=%D0%A1%D1%83%D0%95%D1%82%D0%9E%D0%BB%D0%9E%D0%B3%D0%98&type=private HTTP/1.1" 404 Not Found
+INFO:     192.168.0.109:57298 - "POST /login/ HTTP/1.1" 401 Unauthorized
+INFO:     192.168.0.109:57306 - "POST /login/ HTTP/1.1" 401 Unauthorized
+INFO:     192.168.0.109:57339 - "POST /login/ HTTP/1.1" 401 Unauthorized
+INFO:     192.168.0.109:57344 - "POST /login/ HTTP/1.1" 401 Unauthorized
+INFO:     192.168.0.109:57359 - "POST /user/ HTTP/1.1" 200 OK
+INFO:     192.168.0.109:57376 - "POST /login/ HTTP/1.1" 200 OK
+INFO:     192.168.0.109:57396 - "GET /chat/?name=%D0%A1%D1%83%D0%95%D1%82%D0%9E%D0%BB%D0%9E%D0%B3%D0%98&type=private HTTP/1.1" 404 Not Found
+INFO:     192.168.0.109:57437 - "POST /chat/?name=%D0%A1%D1%83%D0%95%D1%82%D0%9E%D0%BB%D0%9E%D0%B3%D0%98&type=private HTTP/1.1" 404 Not Found
+INFO:     192.168.0.109:57437 - "POST /chat/?name=%D0%A1%D1%83%D0%95%D1%82%D0%9E%D0%BB%D0%9E%D0%B3%D0%98&type=private HTTP/1.1" 404 Not Found
+WARNING:  WatchGodReload detected file change in '['/home/thever4/python/csu-messenger/messenger/schemas/chat.py']'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [575587]
+INFO:     Started server process [576239]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchGodReload detected file change in '['/home/thever4/python/csu-messenger/messenger/schemas/chat.py']'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [576239]
+INFO:     Started server process [576317]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     192.168.0.109:57538 - "POST /chat/?name=%D0%A1%D1%83%D0%95%D1%82%D0%9E%D0%BB%D0%9E%D0%B3%D0%98&type=private HTTP/1.1" 404 Not Found
+INFO:     192.168.0.109:57551 - "POST /c HTTP/1.1" 404 Not Found
+INFO:     192.168.0.109:57562 - "POST / HTTP/1.1" 404 Not Found
+INFO:     192.168.0.109:57562 - "GET / HTTP/1.1" 404 Not Found
+INFO:     192.168.0.109:57562 - "GET /utils HTTP/1.1" 404 Not Found
+INFO:     192.168.0.109:57580 - "GET /user HTTP/1.1" 307 Temporary Redirect
+INFO:     192.168.0.109:57580 - "GET /user/ HTTP/1.1" 200 OK
+WARNING:  WatchGodReload detected file change in '['/home/thever4/python/csu-messenger/messenger/main.py']'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [576317]
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/usr/lib/python3.8/multiprocessing/spawn.py", line 116, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+  File "/usr/lib/python3.8/multiprocessing/spawn.py", line 125, in _main
+    prepare(preparation_data)
+  File "/usr/lib/python3.8/multiprocessing/spawn.py", line 236, in prepare
+    _fixup_main_from_path(data['init_main_from_path'])
+  File "/usr/lib/python3.8/multiprocessing/spawn.py", line 287, in _fixup_main_from_path
+    main_content = runpy.run_path(main_path,
+  File "/usr/lib/python3.8/runpy.py", line 265, in run_path
+    return _run_module_code(code, init_globals, run_name,
+  File "/usr/lib/python3.8/runpy.py", line 97, in _run_module_code
+    _run_code(code, mod_globals, init_globals,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/thever4/python/csu-messenger/messenger/main.py", line 7, in <module>
+    from endpoints.chat import router as chat_router
+  File "/home/thever4/python/csu-messenger/messenger/endpoints/chat.py", line 23, in <module>
+    @router.get("/members", response_model=list(ChatInDB))
+TypeError: 'ModelMetaclass' object is not iterable
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 945, in transfer_data
+    message = await self.read_message()
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 1015, in read_message
+    frame = await self.read_data_frame(max_size=self.max_size)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 1090, in read_data_frame
+    frame = await self.read_frame(max_size)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 1145, in read_frame
+    frame = await Frame.read(
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/framing.py", line 70, in read
+    data = await reader(2)
+  File "/usr/lib/python3.8/asyncio/streams.py", line 721, in readexactly
+    raise exceptions.IncompleteReadError(incomplete, n)
+asyncio.exceptions.IncompleteReadError: 0 bytes read on a total of 2 expected bytes
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/protocols/websockets/websockets_impl.py", line 184, in run_asgi
+    result = await self.app(self.scope, self.asgi_receive, self.asgi_send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/middleware/proxy_headers.py", line 75, in __call__
+    return await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/middleware/debug.py", line 81, in __call__
+    return await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/applications.py", line 261, in __call__
+    await super().__call__(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/applications.py", line 112, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/middleware/errors.py", line 146, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/exceptions.py", line 58, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/middleware/asyncexitstack.py", line 21, in __call__
+    raise e
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 656, in __call__
+    await route.handle(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 315, in handle
+    await self.app(scope, receive, send)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/routing.py", line 77, in app
+    await func(session)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/fastapi/routing.py", line 274, in app
+    await dependant.call(**values)
+  File "/home/thever4/python/csu-messenger/messenger/endpoints/utils.py", line 85, in websocket_endpoint
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/websockets.py", line 128, in send_text
+    await self.send({"type": "websocket.send", "text": data})
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/starlette/websockets.py", line 68, in send
+    await self._send(message)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/uvicorn/protocols/websockets/websockets_impl.py", line 252, in asgi_send
+    await self.send(data)
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 620, in send
+    await self.ensure_open()
+  File "/home/thever4/python/csu-messenger/messenger/venv/lib/python3.8/site-packages/websockets/legacy/protocol.py", line 921, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [555405]
