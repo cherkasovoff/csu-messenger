@@ -3,15 +3,17 @@ from datetime import datetime
 from os import getenv
 import pytz
 
-from fastapi import APIRouter, WebSocket, Body
+from fastapi import APIRouter, WebSocket, Body, Depends
+
+from deps import get_db, get_current_user
+
 from fastapi.responses import HTMLResponse
 
 from core.broker.celery import celery_app
 from core.broker.redis import redis
 from utils import async_query
 
-import json
-
+import crud.message as crud_messages
 
 router = APIRouter(prefix="/utils")
 
@@ -38,13 +40,18 @@ async def ws_page():
         return HTMLResponse(html.read())
 
 
-
 @router.websocket("/ws/{chat_id}")
-async def websocket_endpoint(websocket: WebSocket, chat_id: int):
+async def websocket_endpoint(websocket: WebSocket, chat_id: int, db=Depends(get_db)):
     if chat_id is None:
         return
 
+    all_messages = crud_messages.get_all_messages_in_chat(db=db, chat_id=chat_id)
+
     await websocket.accept()
+
+    for message in all_messages:
+        await websocket.send_text(message.toJSON())
+
     pubsub = redis.pubsub()
     await pubsub.subscribe(f"chat-{chat_id}")
 

@@ -11,7 +11,7 @@
 ul.chat {
     list-style-type: none;
     background-color: var(--background-color);
-    width: var(--chat-width);
+    max-width: var(--chat-width);
     height: var(--chat-height);
     margin-left: auto;
     margin-right: auto;

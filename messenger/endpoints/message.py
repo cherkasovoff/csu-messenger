@@ -8,12 +8,11 @@ from core.broker.redis import redis
 
 import json
 
-
 router = APIRouter(prefix="/message")
 
 
 @router.get("/", response_model=MessageInDB)
-async def get_message(message_id, db=Depends(get_db)): #user_id=Depends(get_current_user)
+async def get_message(message_id, db=Depends(get_db)):  # user_id=Depends(get_current_user)
     """Получить сообщение по заданному chat_id"""
     message = crud.get_message_by_id(db=db, message_id=message_id)
     if message is None:
@@ -46,19 +45,21 @@ async def get_all_messages(chat_id: int, db=Depends(get_db)):
 async def create_message(message: Message, db=Depends(get_db)):
     """Отправить сообщение"""
     result = crud.create_message(db=db, message=message)
-    await redis.publish(f"chat-{message.chat_id}", message.toJSON())
+    await redis.publish(f"chat-{message.chat_id}", result.toJSON())
     return result
 
 
-# @router.put("/", response_model=UserInDB)
-# async def update_user(user: User, user_id=Depends(get_current_user), db=Depends(get_db)):
-#     """Изменить пользователя"""
-#     user_db = crud.update_user(db=db, user_id=user_id, user=user)
-#
-#     return user_db
+@router.delete("/")
+async def delete_message(message_id: int, db=Depends(get_db)):
+    """Удалить сообщение"""
+    message = crud.get_message_by_id(db=db, message_id=message_id)
+    await redis.publish(f"chat-{message.chat_id}", f"DELETE-{message.id}")
+    crud.delete_message(db=db, message_id=message_id)
 
 
-# @router.delete("/")
-# async def delete_user(user_id=Depends(get_current_user), db=Depends(get_db)):
-#     """Удалить пользователя"""
-#     crud.delete_user(db=db, user_id=user_id)
+@router.put("/", response_model=MessageInDB)
+async def edit_message(message: MessageInDB, db=Depends(get_db)):
+    """Изменить сообщение"""
+    message_db = crud.edit_message(db=db, message=message)
+    await redis.publish(f"chat-{message.chat_id}", f"EDIT-{message.id}")
+    return message_db

@@ -5,6 +5,7 @@ from core.db.models import UserChat
 from core.db.models import User
 import schemas.chat as schemaC
 import schemas.chat_user as schemaU
+from sqlalchemy import and_
 
 
 def create_chat(db: Session, user_id: int, chat: schemaC.Chat):
@@ -51,7 +52,7 @@ def get_all_chats_by_id(db: Session, chat_id: int):
 
 
 def get_chat_by_ids(db: Session, user_id: int, chat_id: int):
-    return db.query(UserChat).filter(UserChat.chat_id == chat_id and UserChat.user_id == user_id).one_or_none()
+    return db.query(UserChat).filter(and_(UserChat.chat_id == chat_id, UserChat.user_id == user_id)).first()
 
 
 def get_chat_by_its_id(db: Session, pair_id: int):
