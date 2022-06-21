@@ -96,7 +96,10 @@ async def edit_message(message: MessageInDB, user_id=Depends(get_current_user), 
 
 async def process_message(text: str):
     url = "http://lanhost:8085/extra"
-    extra = await async_query(task_url=url, text=text)
+    try:
+        extra = await async_query(task_url=url, text=text)
+    except BaseException as e:
+        return text
     for one in extra:
         if one['type'] == 'link':
             link = one['text']
