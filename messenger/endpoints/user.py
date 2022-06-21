@@ -36,4 +36,4 @@ async def update_user(user: User, user_id=Depends(get_current_user), db=Depends(
 @router.delete("/")
 async def delete_user(user_id=Depends(get_current_user), db=Depends(get_db)):
     """Удалить пользователя"""
-    crud.delete_user(db=db, user_id=user_id)
+    crud.delete_user(db=db, message_id=user_id)

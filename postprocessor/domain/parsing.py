@@ -11,16 +11,45 @@ def get_links(text: str):
     result = []
     for link in links:
         result.append(
-            Extra(text=link, offset=text.find(link), length=len(link))
+            Extra(text=link, offset=text.find(link), length=len(link), type='link')
         )
 
     return result
 
+
+def get_hashtags(text: str):
+    """Находит хэштеги в тексте"""
+    pattern = r'(\B(\#[a-zA-ZА-Яа-я]+\b)(?!;))'
+    hashtags = re.findall(pattern, text)
+
+    result = []
+    for hashtag, _ in hashtags:
+        result.append(
+            Extra(text=hashtag, offset=text.find(hashtag), length=len(hashtag), type='hashtag')
+        )
+
+    return result
+
+
+def get_mentions(text: str):
+    """Находит mentions в тексте"""
+    pattern = r'(\B(\@[a-zA-Z1-9]+\b)(?!;))'
+    mentions = re.findall(pattern, text)
+
+    result = []
+    for mention, _ in mentions:
+        result.append(
+            Extra(text=mention, offset=text.find(mention), length=len(mention), type='mention')
+        )
+
+    return result
 
 def get_extra(text: str):
     """Находит в тексте экстра-данные: ссылки, упоминания и т.д."""
     extra = []
 
     extra += get_links(text)
+    extra += get_hashtags(text)
+    extra += get_mentions(text)
 
     return extra

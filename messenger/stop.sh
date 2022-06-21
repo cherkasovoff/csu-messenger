@@ -1,0 +1,1 @@
+kill -9 "$(lsof -i :8080 | tail -n 1| awk {'print$2'})"

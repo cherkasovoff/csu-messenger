@@ -3,13 +3,17 @@ from datetime import datetime
 from os import getenv
 import pytz
 
-from fastapi import APIRouter, WebSocket, Body
+from fastapi import APIRouter, WebSocket, Body, Depends
+
+from deps import get_db, get_current_user
+
 from fastapi.responses import HTMLResponse
 
 from core.broker.celery import celery_app
 from core.broker.redis import redis
 from utils import async_query
 
+import crud.message as crud_messages
 
 router = APIRouter(prefix="/utils")
 
@@ -27,61 +31,36 @@ def send_celery_task(begin_datetime: datetime):
     celery_app.send_task("queue.test", eta=dt_with_timezone)
 
 
-html = """
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Chat</title>
-    </head>
-    <body>
-        <h1>WebSocket Chat</h1>
-        <form action="" onsubmit="sendMessage(event)">
-            <input type="text" id="messageText" autocomplete="off"/>
-            <button>Send</button>
-        </form>
-        <ul id='messages'>
-        </ul>
-        <script>
-            var ws = new WebSocket("ws://localhost:8080/utils/ws/1");
-            ws.onmessage = function(event) {
-                var messages = document.getElementById('messages')
-                var message = document.createElement('li')
-                var content = document.createTextNode(event.data)
-                message.appendChild(content)
-                messages.appendChild(message)
-            };
-            function sendMessage(event) {
-                var input = document.getElementById("messageText")
-                ws.send(input.value)
-                input.value = ''
-                event.preventDefault()
-            }
-        </script>
-    </body>
-</html>
-"""
-
-
 @router.get("/ws-page")
 async def ws_page():
     """html-страница с подключением к вебсокету"""
-    return HTMLResponse(html)
+    import os
+    path = os.getcwd()
+    with open(path + "/static/ws-page.html", "r") as html:
+        return HTMLResponse(html.read())
 
 
-@router.websocket("/ws/{user_id}")
-async def websocket_endpoint(websocket: WebSocket, user_id: int):
-    if user_id is None:
+@router.websocket("/ws/{chat_id}")
+async def websocket_endpoint(websocket: WebSocket, chat_id: int, db=Depends(get_db)):
+    if chat_id is None:
         return
 
+    all_messages = crud_messages.get_all_messages_in_chat(db=db, chat_id=chat_id)
+
     await websocket.accept()
+
+    for message in all_messages:
+        await websocket.send_text(message.toJSON())
+
     pubsub = redis.pubsub()
-    await pubsub.subscribe(f"user-{user_id}")
+    await pubsub.subscribe(f"chat-{chat_id}")
 
     while True:
         message = await pubsub.get_message(ignore_subscribe_messages=True)
 
         if message:
-            await websocket.send_text(message["data"].decode())
+            jsonobj = message["data"].decode()
+            await websocket.send_text(jsonobj)
 
 
 @router.get("/ws-pubsub")
@@ -93,7 +72,7 @@ async def ws_pubsub(user_id: int, text: str = "test text"):
 @router.post("/post_process_message")
 async def post_process_message(message: str = Body(..., embed=True)):
     """Пост-обработка сообщений: выделение ссылок, упоминаний и и.д."""
-    url = "http://postprocessor:8080/extra"
+    url = "http://lanhost:8085/extra"
     extra = await async_query(task_url=url, text=message)
 
     return extra

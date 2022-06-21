@@ -1,0 +1,66 @@
+:root {
+    --background-color: black;
+    --left-color: purple;
+    --left-foreground-color: white;
+    --right-foreground-color: black;
+    --right-color: violet;
+    --offsets: 1em;
+    --chat-width: 100%;
+    --chat-height: 700px;
+}
+ul.chat {
+    list-style-type: none;
+    background-color: var(--background-color);
+    max-width: var(--chat-width);
+    height: var(--chat-height);
+    margin-left: auto;
+    margin-right: auto;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0px;
+}
+li.chat-item {
+    display: flex;
+    border-radius: 5px;
+    margin: 8px;
+    width: fit-content;
+}
+ul.chat > li.left {
+    background-color: var(--left-color);
+    color: var(--left-foreground-color);
+    margin-left: var(--offsets);
+}
+ul.chat > li.left::before {
+    content: '';
+    margin-top: auto;
+    margin-bottom: 0px;
+    margin-left: -15px;
+    width: 15px;
+    height: 5px;
+    background-color: transparent;
+    border-bottom-right-radius: 50%;
+    transform:translate(0px, 0px);
+    box-shadow: 10px 0px 0px 0px var(--left-color);
+}
+ul.chat > li.right {
+    background-color: var(--right-color);
+    color: var(--right-foreground-color);
+    margin-right: var(--offsets);
+    margin-left: auto;
+}
+ul.chat > li.right::after {
+    content: '';
+    margin-top: auto;
+    margin-bottom: 0px;
+    margin-right: -15px;
+    width: 15px;
+    height: 5px;
+    background-color: transparent;
+    border-bottom-left-radius: 50%;
+    transform:translate(0px, 0px);
+    box-shadow: -10px 0px 0px 0px var(--right-color);
+}
+ul.chat > li > div {
+    margin: 16px;
+}

@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chat</title>
+    <link rel="stylesheet" href="/static/chat.css"/>
+    <style>
+        :root {
+            --background-color: white;
+            --chat-width: 50%;
+        }
+    </style>
+</head>
+<body onLoad="loadPage(event)">
+<h1>WebSocket Chat</h1>
+<span id="status"></span>
+<form action="" onsubmit="authorize(event)">
+    <input type="text" id="userLogin" autocomplete="off" placeholder="login"/>
+    <input type="password" id="userPassword" autocomplete="off" placeholder="password"/>
+    <input type="submit" value="Login">
+    <input type="button" onClick="logout(event)" value="Log out">
+</form>
+<hr>
+<input type="button" onClick="loadAllMyChats(event)" value="Load my chats">
+<ul id='mychats'>
+</ul>
+<hr>
+<form action="" onsubmit="sendMessage(event)">
+    <input type="text" id="messageText" autocomplete="off"/>
+    <button>Send</button>
+</form>
+<form action="" onsubmit="sendScheduledMessage(event)">
+    <input type="datetime-local" id="selectedDate"/>
+    <button>Send scheduled message</button>
+</form>
+<center>
+    <h2 id="chat-name"></h2>
+    <br/>
+    <span id="members"></span>
+</center>
+<ul id='messages' class="chat">
+</ul>
+</body>
+</html>
+
+<script>
+    var currentdate = new Date()
+    var datetimemin = currentdate.getFullYear() + "-"
+                + (currentdate.getMonth()+1)  + "-"
+                + currentdate.getDate() + "T"
+                + currentdate.getHours() + ":"
+                + currentdate.getMinutes()
+    document.getElementById('selectedDate').min = datetimemin
+    var all_messages = []
+    var global_chat_id = null;
+    var global_members = [];
+    var TOKEN = null;
+    function loadPage(event) {
+        TOKEN = localStorage.getItem("TOKEN")
+        if(TOKEN !== null) {
+            document.getElementById("status").innerHTML = `<font color='#00FF00'>Authorized as ${localStorage.getItem("USER_NAME")} (${localStorage.getItem("USER_LOGIN")})</font>`
+        }
+        else {
+            document.getElementById("status").innerHTML = "<font color='#FF0000'>Unauthorized</font>"
+        }
+    }
+    var ws = null;
+    var TOKEN = null;
+    const onmessagews = function(event) {
+        var messages = document.getElementById('messages')
+        var message = document.createElement('li')
+
+        if(isJson(event.data)) {
+            var msg = JSON.parse(event.data)
+            all_messages.push(msg)
+            message.setAttribute("class", msg.user_id == localStorage.getItem("USER_ID") ? 'chat-item right' : 'chat-item left');
+            message.setAttribute("message_id", msg.id);
+            var div = document.createElement('div')
+            var user = global_members.filter(member => member.id == msg.user_id)[0]
+            var buttons = `<button onclick='deleteMessage(${msg.id})'>X</button><button onclick='editMessage(${msg.id})'>🖉</button>`
+            div.innerHTML = `<font size="2"><i>${user.name} (${user.login})</i></font><br>${msg.text}<br>${msg.user_id == localStorage.getItem("USER_ID") ? buttons : ""}`;
+            message.appendChild(div)
+            messages.appendChild(message)
+        } else {
+            var task = event.data.split('-')
+            var action = task[0]
+            var subject = task[1]
+            switch (action) {
+                case "DELETE":
+                    document.querySelector(`[message_id="${subject}"`).remove()
+                    break;
+                case "EDIT":
+                    fetch(`/message/?message_id=${subject}`, { headers: { Authorization: "Bearer " + TOKEN, "Content-Type": "application/json" }}).then(r => r.json())
+                        .then(msg => {
+                            //TODO make separated method for this
+                            var div = document.createElement('div')
+                            var user = global_members.filter(member => member.id == msg.user_id)[0]
+                            var buttons = `<button onclick='deleteMessage(${msg.id})'>X</button><button onclick='editMessage(${msg.id})'>🖉</button>`
+                            div.innerHTML = `<font size="2"><i>${user.name} (${user.login})</i></font><br>${msg.text}<br>${msg.user_id == localStorage.getItem("USER_ID") ? buttons : ""}`;
+                            var cloud = document.querySelector(`[message_id="${subject}"`)
+                            cloud.innerHTML = ""
+                            cloud.appendChild(div)
+                        })
+                    break;
+            }
+        }
+    };
+    function sendMessage(event) {
+        var input = document.getElementById("messageText")
+        const json_request_body = JSON.stringify({
+            user_id: localStorage.getItem("USER_ID"),
+            chat_id: global_chat_id,
+            text: input.value,
+            edited: false,
+            read: false
+        });
+        console.log(json_request_body);
+        fetch(`/message/`, {method: 'POST', headers: { Authorization: "Bearer " + TOKEN, "Content-Type": "application/json" }, body: json_request_body})
+        input.value = ''
+        event.preventDefault()
+    }
+
+    function sendScheduledMessage(event) {
+        event.preventDefault()
+        var input = document.getElementById("messageText")
+        var datetime = document.getElementById('selectedDate')
+        datetime = datetime.value
+        datetime += ":00"
+        datetime = datetime.replace('T', ' ')
+        const json_request_body = JSON.stringify({
+            user_id: localStorage.getItem("USER_ID"),
+            chat_id: global_chat_id,
+            text: input.value,
+            created_date: datetime
+        })
+        console.log(json_request_body);
+        fetch(`/message/scheduled`, {method: 'POST', headers: { Authorization: "Bearer " + TOKEN, "Content-Type": "application/json" }, body: json_request_body})
+        input.value = ''
+    }
+    async function authorize(event) {
+        event.preventDefault()
+        const formData = new FormData();
+        var login = document.getElementById("userLogin")
+        formData.append('username', login.value);
+        var password  = document.getElementById("userPassword")
+        formData.append('password', password.value);
+        await fetch('/login/', {method: 'POST', body: formData}).then(r => r.json())
+            .then(data => {
+                localStorage.setItem("TOKEN", data.access_token)
+                return data
+            })
+            .then(data => {
+                const TOKEN = localStorage.getItem("TOKEN")
+                fetch('/user/', {method: 'GET', headers: { Authorization: "Bearer " + TOKEN }}).then(r => r.json())
+                    .then(data => {
+                        localStorage.setItem("USER_ID", data.id)
+                        localStorage.setItem("USER_NAME", data.name)
+                        localStorage.setItem("USER_LOGIN", data.login)
+                        return data
+                    })
+                    .then(data => {
+                        loadPage(null)
+                    })
+            })
+
+    }
+    function logout(event) {
+        localStorage.removeItem("TOKEN")
+        loadPage(null)
+    }
+    function loadAllMyChats(event) {
+        event.preventDefault()
+        const TOKEN = localStorage.getItem("TOKEN")
+        if(TOKEN === "null") {
+            alert("Authenticate before")
+            return
+        }
+        var result = Array();
+        fetch('/chat/my', {method: 'GET', headers: { Authorization: "Bearer " + TOKEN }}).then(r => r.json())
+            .then(data => data.forEach(element => {
+                var mychats = document.getElementById('mychats')
+                var oneChat = document.createElement('li')
+                var button = document.createElement('button')
+                button.setAttribute("onClick", `connectToChat(${element.id}, '${element.name}')`);
+                var content = document.createTextNode(element.name)
+                button.appendChild(content)
+                oneChat.appendChild(button)
+                mychats.appendChild(oneChat)
+            }))
+    }
+    var lastChatId, lastChatName;
+    function connectToChat(chat_id, chat_name) {
+        lastChatId = chat_id
+        lastChatName = chat_name
+        ws?.close();
+        document.getElementById('chat-name').innerHTML = `U're in chat: <i>${chat_name}<\i>`;
+        fetch(`/chat/members?chat_id=${chat_id}`,{ headers: { Authorization: "Bearer " + TOKEN, "Content-Type": "application/json" }}).then(r => r.json())
+            .then(data => {
+                    var mychats = document.getElementById('members')
+                    global_members = data;
+                    var users = data.map(member => `${member.name} aka ${member.login}`)
+                    var content = document.createTextNode(`Members (${users.length}): ${users.join(', ')}`)
+                    mychats.appendChild(content)
+                    return data
+                }
+            )
+        ws = new WebSocket(`ws://${window.location.host}/utils/ws/` + chat_id);
+        ws.onmessage = onmessagews;
+        global_chat_id = chat_id;
+    }
+    function deleteMessage(message_id) {
+        if(confirm("Are you sure want to delete message?"))
+            fetch(`/message/?message_id=${message_id}`, {method: 'DELETE', headers: { Authorization: "Bearer " + TOKEN, "Content-Type": "application/json" }})
+    }
+    function editMessage(message_id) {
+        var message = all_messages.filter(msg => msg.id == message_id)[0]
+        var result = prompt("Edit message", message.text)
+        if(result != null) {
+            message.text = result
+            console.log(JSON.stringify(message))
+            fetch(`/message/`, {method: 'PUT', headers: { Authorization: "Bearer " + TOKEN, "Content-Type": "application/json" }, body: JSON.stringify(message)})
+        }
+    }
+
+    window.onbeforeunload = function() {
+        try {ws.onclose = function () {};} catch (ignore) {} // disable onclose handler first
+        ws?.close();
+    };
+
+    function isJson(str) {
+        try {
+            JSON.parse(str);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+</script>

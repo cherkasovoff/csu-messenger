@@ -5,3 +5,4 @@ class Extra(BaseModel):
     text: str
     offset: int
     length: int
+    type: str
