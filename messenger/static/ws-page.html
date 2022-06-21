@@ -32,6 +32,10 @@
     <input type="text" id="messageText" autocomplete="off"/>
     <button>Send</button>
 </form>
+<form action="" onsubmit="sendScheduledMessage(event)">
+    <input type="datetime-local" id="selectedDate"/>
+    <button>Send scheduled message</button>
+</form>
 <center>
     <h2 id="chat-name"></h2>
     <br/>
@@ -43,6 +47,13 @@
 </html>
 
 <script>
+    var currentdate = new Date()
+    var datetimemin = currentdate.getFullYear() + "-"
+                + (currentdate.getMonth()+1)  + "-"
+                + currentdate.getDate() + "T"
+                + currentdate.getHours() + ":"
+                + currentdate.getMinutes()
+    document.getElementById('selectedDate').min = datetimemin
     var all_messages = []
     var global_chat_id = null;
     var global_members = [];
@@ -110,6 +121,24 @@
         fetch(`/message/`, {method: 'POST', headers: { Authorization: "Bearer " + TOKEN, "Content-Type": "application/json" }, body: json_request_body})
         input.value = ''
         event.preventDefault()
+    }
+
+    function sendScheduledMessage(event) {
+        event.preventDefault()
+        var input = document.getElementById("messageText")
+        var datetime = document.getElementById('selectedDate')
+        datetime = datetime.value
+        datetime += ":00"
+        datetime = datetime.replace('T', ' ')
+        const json_request_body = JSON.stringify({
+            user_id: localStorage.getItem("USER_ID"),
+            chat_id: global_chat_id,
+            text: input.value,
+            created_date: datetime
+        })
+        console.log(json_request_body);
+        fetch(`/message/scheduled`, {method: 'POST', headers: { Authorization: "Bearer " + TOKEN, "Content-Type": "application/json" }, body: json_request_body})
+        input.value = ''
     }
     async function authorize(event) {
         event.preventDefault()
