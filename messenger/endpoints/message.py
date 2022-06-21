@@ -13,7 +13,7 @@ router = APIRouter(prefix="/message")
 
 @router.get("/", response_model=MessageInDB)
 async def get_message(message_id: int, user_id=Depends(get_current_user), db=Depends(get_db)):  # user_id=Depends(get_current_user)
-    """Получить сообщение по заданному chat_id"""
+    """Получить сообщение по заданному id"""
     message = crud.get_message_by_id(db=db, message_id=message_id)
     if message is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)

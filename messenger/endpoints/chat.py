@@ -34,7 +34,7 @@ async def get_chat_members(chat_id: int, user_id=Depends(get_current_user), db=D
 
 
 @router.get("/my", response_model=List[ChatInDB])
-async def get_chat_members(user_id=Depends(get_current_user), db=Depends(get_db)):
+async def get_all_my_chats(user_id=Depends(get_current_user), db=Depends(get_db)):
     """Получить свои чаты"""
     chat = crud.get_all_chats_of_user(db=db, user_id=user_id)
     if chat is None:
@@ -50,17 +50,3 @@ async def create_chat(chat: Chat, user_id=Depends(get_current_user), db=Depends(
     message = crud_message.create_message(db=db, message=Message(user_id=user_id, chat_id=result.id, text=f"Chat {chat.name} created", edited=False, read=False))
     redis.publish(f"user-{user_id}", message.text)
     return result
-
-
-# @router.put("/", response_model=UserInDB)
-# async def update_user(user: User, user_id=Depends(get_current_user), db=Depends(get_db)):
-#     """Изменить пользователя"""
-#     user_db = crud.update_user(db=db, user_id=user_id, user=user)
-#
-#     return user_db
-
-
-# @router.delete("/")
-# async def delete_user(user_id=Depends(get_current_user), db=Depends(get_db)):
-#     """Удалить пользователя"""
-#     crud.delete_user(db=db, user_id=user_id)
