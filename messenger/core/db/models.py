@@ -41,3 +41,4 @@ class Message(Base):
     created_date = Column(DateTime, server_default=func.now())
     edited = Column(Boolean)
     read = Column(Boolean)
+    maybesent = Column(Boolean)

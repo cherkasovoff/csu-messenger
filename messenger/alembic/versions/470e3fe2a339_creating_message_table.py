@@ -25,6 +25,7 @@ def upgrade():
     sa.Column('created_date', sa.DateTime(), server_default=sa.text('CURRENT_TIMESTAMP'), nullable=False),
     sa.Column('edited', sa.Boolean(), server_default=expression.false(), nullable=False),
     sa.Column('read', sa.Boolean(), server_default=expression.false(), nullable=False),
+    sa.Column('maybesent', sa.Boolean(), server_default=expression.true(), nullable=False),
     sa.ForeignKeyConstraint(['user_chat_id'], ['users_chats.id'], ),
     sa.PrimaryKeyConstraint('id')
     )

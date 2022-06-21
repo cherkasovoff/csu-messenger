@@ -14,7 +14,7 @@ router = APIRouter(prefix="/chat")
 
 
 @router.get("/", response_model=ChatInDB)
-async def get_chat(chat_id, db=Depends(get_db)):
+async def get_chat(chat_id, user_id=Depends(get_current_user), db=Depends(get_db)):
     """Получить чат по заданному chat_id"""
     chat = crud.get_chat_by_id(db=db, chat_id=chat_id)
     if chat is None:
@@ -24,7 +24,7 @@ async def get_chat(chat_id, db=Depends(get_db)):
 
 
 @router.get("/members", response_model=List[UserInDB])
-async def get_chat_members(chat_id: int, db=Depends(get_db)):
+async def get_chat_members(chat_id: int, user_id=Depends(get_current_user), db=Depends(get_db)):
     """Получить всех пользователей чата"""
     chat = crud.get_chat_members(db=db, chat_id=chat_id)
     if chat is None:

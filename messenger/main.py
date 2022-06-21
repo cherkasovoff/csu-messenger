@@ -7,6 +7,9 @@ from endpoints.user import router as user_router
 from endpoints.utils import router as utils_router
 from endpoints.chat import router as chat_router
 from endpoints.message import router as message_router
+import atexit
+
+from worker import schedule_dispatcher
 
 app = FastAPI()
 
@@ -17,7 +20,9 @@ app.include_router(chat_router, tags=["chat"])
 app.include_router(message_router, tags=["message"])
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
+
 if __name__ == "__main__":
+    schedule_dispatcher.delay()
     uvicorn.run(
         "main:app",
         host='0.0.0.0',
@@ -25,3 +30,4 @@ if __name__ == "__main__":
         reload=True,
         debug=True,
     )
+

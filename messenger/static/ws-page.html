@@ -46,8 +46,9 @@
     var all_messages = []
     var global_chat_id = null;
     var global_members = [];
+    var TOKEN = null;
     function loadPage(event) {
-        const TOKEN = localStorage.getItem("TOKEN")
+        TOKEN = localStorage.getItem("TOKEN")
         if(TOKEN !== null) {
             document.getElementById("status").innerHTML = `<font color='#00FF00'>Authorized as ${localStorage.getItem("USER_NAME")} (${localStorage.getItem("USER_LOGIN")})</font>`
         }
@@ -81,7 +82,7 @@
                     document.querySelector(`[message_id="${subject}"`).remove()
                     break;
                 case "EDIT":
-                    fetch(`/message/?message_id=${subject}`).then(r => r.json())
+                    fetch(`/message/?message_id=${subject}`, { headers: { Authorization: "Bearer " + TOKEN, "Content-Type": "application/json" }}).then(r => r.json())
                         .then(msg => {
                             //TODO make separated method for this
                             var div = document.createElement('div')
@@ -167,7 +168,7 @@
         lastChatName = chat_name
         ws?.close();
         document.getElementById('chat-name').innerHTML = `U're in chat: <i>${chat_name}<\i>`;
-        fetch(`/chat/members?chat_id=${chat_id}`).then(r => r.json())
+        fetch(`/chat/members?chat_id=${chat_id}`,{ headers: { Authorization: "Bearer " + TOKEN, "Content-Type": "application/json" }}).then(r => r.json())
             .then(data => {
                     var mychats = document.getElementById('members')
                     global_members = data;
@@ -183,7 +184,7 @@
     }
     function deleteMessage(message_id) {
         if(confirm("Are you sure want to delete message?"))
-            fetch(`/message/?message_id=${message_id}`, {method: 'DELETE'})
+            fetch(`/message/?message_id=${message_id}`, {method: 'DELETE', headers: { Authorization: "Bearer " + TOKEN, "Content-Type": "application/json" }})
     }
     function editMessage(message_id) {
         var message = all_messages.filter(msg => msg.id == message_id)[0]
