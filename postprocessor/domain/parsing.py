@@ -11,7 +11,7 @@ def get_links(text: str):
     result = []
     for link in links:
         result.append(
-            Extra(text=link, offset=text.find(link), length=len(link))
+            Extra(text=link, offset=text.find(link), length=len(link), type='link')
         )
 
     return result
@@ -25,7 +25,7 @@ def get_hashtags(text: str):
     result = []
     for hashtag, _ in hashtags:
         result.append(
-            Extra(text=hashtag, offset=text.find(hashtag), length=len(hashtag))
+            Extra(text=hashtag, offset=text.find(hashtag), length=len(hashtag), type='hashtag')
         )
 
     return result

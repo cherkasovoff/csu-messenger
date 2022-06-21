@@ -1,3 +1,6 @@
+import asyncio
+import threading
+
 from fastapi import APIRouter, Depends, HTTPException, status
 
 from deps import get_db, get_current_user
@@ -7,6 +10,10 @@ from schemas.message import Message, MessageInDB, MessageWithDate, CreateMessage
 from core.broker.redis import redis
 
 import json
+
+from utils import async_query
+
+mutex = threading.Lock()
 
 router = APIRouter(prefix="/message")
 
@@ -45,6 +52,9 @@ async def get_all_messages(chat_id: int, user_id=Depends(get_current_user), db=D
 async def create_message(message: Message, user_id=Depends(get_current_user), db=Depends(get_db)):
     """Отправить сообщение"""
     message.user_id = user_id
+    mutex.acquire()
+    message.text = await process_message(message.text)
+    mutex.release()
     result = crud.create_message(db=db, message=message)
     await redis.publish(f"chat-{message.chat_id}", result.toJSON())
     return result
@@ -54,6 +64,9 @@ async def create_message(message: Message, user_id=Depends(get_current_user), db
 async def create_scheduled_message(message: CreateMessageWithDate, user_id=Depends(get_current_user), db=Depends(get_db)):
     """Отправить сообщение"""
     message.user_id = user_id
+    mutex.acquire()
+    message.text = await process_message(message.text)
+    mutex.release()
     result = crud.create_sheduled_message(db=db, message=message)
     return result
 
@@ -71,9 +84,23 @@ async def delete_message(message_id: int, user_id=Depends(get_current_user), db=
 @router.put("/", response_model=MessageInDB)
 async def edit_message(message: MessageInDB, user_id=Depends(get_current_user), db=Depends(get_db)):
     """Изменить сообщение"""
-    message_db = crud.edit_message(db=db, message=message)
     if str(message.user_id) != str(user_id):
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN)
+    mutex.acquire()
+    message.text = await process_message(message.text)
+    mutex.release()
+    message_db = crud.edit_message(db=db, message=message)
     await redis.publish(f"chat-{message.chat_id}", f"EDIT-{message.id}")
     return message_db
+
+
+async def process_message(text: str):
+    url = "http://lanhost:8085/extra"
+    extra = await async_query(task_url=url, text=text)
+    for one in extra:
+        if one['type'] == 'link':
+            text = text.replace(one['text'], f"<a href='{one['text']}'>{one['text']}</a>")
+        elif one['type'] == 'hashtag':
+            text = text.replace(one['text'], f"<a href='https://www.google.com/search?q={one['text'][1:]}'>{one['text']}</a>")
+    return text
 
