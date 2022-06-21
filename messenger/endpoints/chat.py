@@ -1,12 +1,14 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from typing import List
 
+from core.db.models import UserChat
 from deps import get_db, get_current_user
 import crud.chat as crud
 import crud.message as crud_message
 from schemas.chat import Chat, ChatInDB
 from schemas.user import User, UserInDB
 from schemas.message import Message
+from schemas.chat_user import ChatUser
 
 from core.broker.redis import redis
 
@@ -31,6 +33,12 @@ async def get_chat_members(chat_id: int, user_id=Depends(get_current_user), db=D
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
 
     return chat
+
+
+@router.post("/members/invite")
+async def invite_user_to_chat(chat_id: int, invitable_user_id: int, user_id=Depends(get_current_user), db=Depends(get_db)):
+    """Добавить пользователя в чат"""
+    return crud.add_user_in_chat(db, ChatUser(user_id=invitable_user_id, chat_id=chat_id))
 
 
 @router.get("/my", response_model=List[ChatInDB])

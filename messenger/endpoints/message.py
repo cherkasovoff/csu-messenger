@@ -99,8 +99,14 @@ async def process_message(text: str):
     extra = await async_query(task_url=url, text=text)
     for one in extra:
         if one['type'] == 'link':
-            text = text.replace(one['text'], f"<a href='{one['text']}'>{one['text']}</a>")
+            link = one['text']
+            if link.endswith('.jpg') or link.endswith('.png') or link.endswith('.gif'):
+                text = text.replace(one['text'], f"<br><img src='{one['text']}'>")
+            else:
+                text = text.replace(one['text'], f"<a href='{one['text']}' target=\"_blank\">{one['text']}</a>")
         elif one['type'] == 'hashtag':
-            text = text.replace(one['text'], f"<a href='https://www.google.com/search?q={one['text'][1:]}'>{one['text']}</a>")
+            text = text.replace(one['text'], f"<a href='https://www.google.com/search?q={one['text'][1:]}' target=\"_blank\">{one['text']}</a>")
+        elif one['type'] == 'mention':
+            text = text.replace(one['text'], f"<a href='https://t.me/{one['text'][1:]}' target=\"_blank\">{one['text']}</a>")
     return text
 
