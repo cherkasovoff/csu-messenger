@@ -102,6 +102,17 @@ async def process_message(text: str):
             link = one['text']
             if link.endswith('.jpg') or link.endswith('.png') or link.endswith('.gif'):
                 text = text.replace(one['text'], f"<br><img src='{one['text']}'>")
+            elif link.startswith('https://www.youtube.com/watch?v='):
+                code = link.split('=')[1]
+                text = text.replace(one['text'], f"<br><iframe width='560' height='315' src='https://www.youtube.com/embed/{code}' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>")
+            elif link.startswith('https://youtu.be/'):
+                code = link.split('/')[-1]
+                text = text.replace(one['text'], f"<br><iframe width='560' height='315' src='https://www.youtube.com/embed/{code}' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>")
+            elif link.startswith('https://music.yandex.ru/album/'):
+                codes = link.split('/')
+                track_id = codes[-1]
+                album_id = codes[-3]
+                text = text.replace(one['text'], f"<br><iframe frameborder='0' style='border:none;width:100%;height:90px;' width='100%' height='90' src='https://music.yandex.ru/iframe/#track/{track_id}/{album_id}'></iframe>")
             else:
                 text = text.replace(one['text'], f"<a href='{one['text']}' target=\"_blank\">{one['text']}</a>")
         elif one['type'] == 'hashtag':
